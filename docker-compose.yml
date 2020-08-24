@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:alpine
+    restart: always
+    networks:
+      - frontend
+    environment:
+      POSTGRES_USER: platform
+      POSTGRES_PASSWORD: platform!2020
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+  api:
+    build: .
+    networks:
+      - frontend
+    restart: always
+    environment:
+        DJANGO_ENV: prod
+        POSTGRES_DB: platform
+        POSTGRES_HOST: db
+        POSTGRES_USER: platform
+        POSTGRES_PASSWORD: platform!2020
+        UPLOAD_ROOT: /home/
+    command: gunicorn --workers 4 --timeout 60 -b 0.0.0.0:8001 taiga.wsgi
+    ports:
+      - 8001:8001
+    depends_on:
+      - db
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile_fd
+    networks:
+      - frontend
+    restart: always
+    depends_on:
+      - api
+    ports:
+      - "80:80"
+  
+volumes:
+  postgres_data:
+
+networks:
+  frontend:
+    driver: bridge
