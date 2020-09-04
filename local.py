@@ -1,7 +1,7 @@
 from .common import *
 
-MEDIA_URL = "http://example.com/media/"
-STATIC_URL = "http://example.com/static/"
+MEDIA_URL = "http://127.0.0.1/media/"
+STATIC_URL = "http://127.0.0.1/static/"
 SITES["front"]["scheme"] = "http"
 SITES["front"]["domain"] = "127.0.0.1"
 
