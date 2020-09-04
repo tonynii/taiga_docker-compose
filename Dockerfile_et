@@ -1,0 +1,18 @@
+FROM node:8.12-alpine
+
+RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g" /etc/apk/repositories &&\
+ apk update && \
+ apk add --no-cache git && \
+ apk add --no-cache tzdata && \
+ ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
+ echo "Asia/Shanghai" > /etc/timezone && \
+ cd /opt && \
+ git clone https://github.com/taigaio/taiga-events.git taiga-events && \
+ cd taiga-events && \
+ npm install
+
+COPY event_conf.json /opt/taiga-events/config.json
+
+EXPOSE 8888
+
+WORKDIR /opt/taiga-events

@@ -2,6 +2,7 @@ FROM python:3.8-alpine
 
 ENV PYTHONUNBUFFERED 1
 ENV DOCKER_CONTAINER 1
+ENV C_FORCE_ROOT true
 
 RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g" /etc/apk/repositories &&\
  apk update && \
@@ -23,13 +24,9 @@ RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g" /etc/apk/re
  pip install -U -i https://pypi.tuna.tsinghua.edu.cn/simple gunicorn
 # apk del .build-deps
 
-# Copy the base uWSGI ini file to enable default dynamic uwsgi process number
-# COPY uwsgi.ini /etc/uwsgi/
-
 COPY local.py /opt/taiga-back/settings/
+COPY celery.py /opt/taiga-back/settings/
 
 EXPOSE 8001
 
 WORKDIR /opt/taiga-back
-
-CMD "gunicorn --workers 4 --timeout 60 -b 0.0.0.0:8001 taiga.wsgi"

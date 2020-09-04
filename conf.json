@@ -1,6 +1,6 @@
 {
     "api": "http://10.1.1.179/api/v1/",
-    "eventsUrl": null,
+    "eventsUrl": "ws://10.1.1.179:8888/events",
     "eventsMaxMissedHeartbeats": 5,
     "eventsHeartbeatIntervalTime": 60000,
     "eventsReconnectTryInterval": 10000,

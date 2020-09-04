@@ -1,0 +1,7 @@
+{
+    "url": "amqp://platform:platform!2020@rabbit",
+    "secret": "shsnhsdjlajeuncsouer",
+    "webSocketServer": {
+        "port": 8888
+    }
+}

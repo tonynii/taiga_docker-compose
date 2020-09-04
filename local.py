@@ -19,10 +19,10 @@ PUBLIC_REGISTER_ENABLED = True
 DEFAULT_FROM_EMAIL = "no-reply@example.com"
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
-#CELERY_ENABLED = True
+CELERY_ENABLED = True
 
 EVENTS_PUSH_BACKEND = "taiga.events.backends.rabbitmq.EventsPushBackend"
-EVENTS_PUSH_BACKEND_OPTIONS = {"url": "amqp://taiga:PASSWORD_FOR_EVENTS@localhost:5672/taiga"}
+EVENTS_PUSH_BACKEND_OPTIONS = {"url": "amqp://platform:platform!2020@rabbit"}
 
 # Uncomment and populate with proper connection parameters
 # to enable email sending. `EMAIL_HOST_USER` should end by @<domain>.<tld>
